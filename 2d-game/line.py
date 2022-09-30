@@ -1,5 +1,4 @@
 import pygame
-import __main__ as main
 from enum import Enum
 import math
 
@@ -10,7 +9,7 @@ class LineType(Enum):
     DOTTED = 3
 
 
-class Line():
+class Line:
     def __init__(self, start, end, color, line_thickness, linetype = LineType.CONTINUOUS, interval_length = 10, space = 10):
         if not isinstance(linetype, LineType):
             raise ValueError("Expected LineType but got {}".format(type(linetype)))
@@ -45,9 +44,9 @@ class Line():
             total = (x**2+y**2)**0.5
         return (interval_x, interval_y, total)
 
-    def draw(self):
+    def draw(self, screen):
         if self.linetype == LineType.CONTINUOUS:
-            return pygame.draw.line(main.screen, self.color, self.start, self.end, self.line_thickness)
+            pygame.draw.line(screen, self.color, self.start, self.end, self.line_thickness)
         elif self.linetype == LineType.DASHED:
             start_x = self.start[0]
             start_y = self.start[1]
@@ -67,11 +66,11 @@ class Line():
             for count in range(0,interval_count):
                 end_x = start_x+dist_interval_x
                 end_y = start_y+dist_interval_y
-                pygame.draw.line(main.screen, self.color, (start_x, start_y), (end_x, end_y), self.line_thickness)
+                pygame.draw.line(screen, self.color, (start_x, start_y), (end_x, end_y), self.line_thickness)
                 start_x = end_x+dist_interval_x
                 start_y = end_y+dist_interval_y
                 count+=1
-            pygame.draw.line(main.screen, self.color, (start_x, start_y), (start_x+final_x, start_y+final_y), self.line_thickness)
+            pygame.draw.line(screen, self.color, (start_x, start_y), (start_x+final_x, start_y+final_y), self.line_thickness)
 
 
 
