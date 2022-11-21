@@ -14,10 +14,11 @@ class Pong:
         width = self.screen.get_width()
         height = self.screen.get_height()
         self.background = background.Background(self.screen, width, height)
+        self.move_constant = 10
+        self.ball_velocity = {"x":1, "y":1}
         self.player_A = player.Player(self.screen, pygame.Rect(10, height/2-30, 5, 60))
         self.player_B = player.Player(self.screen, pygame.Rect(width-10, height/2-30, 5, 60))
-        self.ball = ball.Ball(self.screen, pygame.Rect(width/2-5, height/2+5, 10, 10))
-        self.move_constant = 10
+        self.ball = ball.Ball(self.screen, pygame.Rect(width/2-5, height/2+5, 10, 10), self.ball_velocity)
         self.main_loop()
 
     def draw(self):
@@ -40,6 +41,7 @@ class Pong:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done = True
+            self.ball.move()
             self.draw()
             pygame.display.update()
             clock.tick(60)
