@@ -15,11 +15,15 @@ class Pong:
         height = self.screen.get_height()
         self.background = background.Background(self.screen, width, height)
         self.move_constant = 10
-        self.ball_velocity = {"x":1, "y":1}
         self.player_A = player.Player(self.screen, pygame.Rect(10, height/2-30, 5, 60))
         self.player_B = player.Player(self.screen, pygame.Rect(width-10, height/2-30, 5, 60))
-        self.ball = ball.Ball(self.screen, pygame.Rect(width/2-5, height/2+5, 10, 10), self.ball_velocity)
+        self.ball = ball.Ball(self.screen, pygame.Rect(width/2-5, height/2+5, 10, 10))
         self.main_loop()
+
+    def move(self):
+        self.ball.move()
+        self.player_A.move()
+        self.player_B.move()
 
     def draw(self):
         self.screen.fill((color.BLACK))
@@ -35,13 +39,15 @@ class Pong:
         while not done:
             keystate = pygame.key.get_pressed()
             if keystate[pygame.K_UP]:
-                self.player_A.move(-self.move_constant)
+                self.player_A.velocity["y"]=self.move_constant
+                self.player_B.velocity["y"]=self.move_constant
             if keystate[pygame.K_DOWN]:
-                self.player_A.move(self.move_constant)
+                self.player_A.velocity["y"]=-self.move_constant
+                self.player_B.velocity["y"]=-self.move_constant
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done = True
-            self.ball.move()
+            self.move()
             self.draw()
             pygame.display.update()
             clock.tick(60)

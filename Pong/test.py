@@ -1,5 +1,4 @@
 import unittest
-import __main__ as main
 import line
 import color
 
