@@ -1,5 +1,6 @@
 import pygame
 import color
+import text
 
 
 class Background:
@@ -9,16 +10,18 @@ class Background:
         self.height = height
         self.color = color_
         self.line_thickness = line_thickness
+        self.max_rounds=5
+        self.round_no=0
 
     def draw(self):
         coordinates =  (self.width/2, 0, 5, self.height)
+        # draw middle line
         pygame.draw.rect(self.screen, self.color, coordinates)
-        
+        # display match round number
+        self.display_match_round()
 
-    def display_player_name(self):
-        font = pygame.font.Font('freesansbold.ttf', 500)
-        text = font.render('Player 1', True, color.GREEN, color.BLUE)
-        textRect = text.get_rect()
-        textRect.center = (self.width/4, self.height/5)
-        # set the center of the rectangular object.
-        (self.screen).blit(text, textRect)
+    def display_match_round(self):
+        # render text of score for Player A and add transparency (100/255)%
+        score_txt = text.set(str(self.round_no)+'/' + str(self.max_rounds) + ' ROUNDS', (self.screen.get_width()/2, self.screen.get_height()-50), 175)
+        (self.screen).blit(*score_txt)
+
