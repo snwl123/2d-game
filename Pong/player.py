@@ -4,8 +4,8 @@ import objActivity
 
 class Player(objActivity.ObjActivity):
     def __init__(self, screen, shape, score=0, color_=color.WHITE):
-        self.velocity = {"x":0, "y":0}
-        super().__init__(shape,self.velocity)
+        velocity = {"x":0, "y":0}
+        super().__init__(shape,velocity)
         self.screen = screen
         self.shape = shape
         self.score = score

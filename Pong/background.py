@@ -13,3 +13,12 @@ class Background:
     def draw(self):
         coordinates =  (self.width/2, 0, 5, self.height)
         pygame.draw.rect(self.screen, self.color, coordinates)
+        
+
+    def display_player_name(self):
+        font = pygame.font.Font('freesansbold.ttf', 500)
+        text = font.render('Player 1', True, color.GREEN, color.BLUE)
+        textRect = text.get_rect()
+        textRect.center = (self.width/4, self.height/5)
+        # set the center of the rectangular object.
+        (self.screen).blit(text, textRect)
